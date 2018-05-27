@@ -5,6 +5,8 @@
 
 char f[100], var[10], tempC, matrizVariaveis[10][10], matrizPReservada[10][6];
 int p=0, tempN, indice=0, qtVar=0;
+int comparaString(char a[], char b[]);
+void cpy(char *destino, const char *src);
 void e0();
 void e1();
 void e2();
@@ -23,6 +25,27 @@ void funcao8();
 void funcao9(char simbolo);
 void funcao10();
 void print();
+
+int comparaString(char a[], char b[]){
+	int c;
+	for(c=0; a[c] != '\0'; c++){
+		if(a[c] != b[c])
+		    return 0;
+		}
+		if(a[c] != b[c])
+		    return 0;
+		else
+		    return 1;
+}
+
+void cpy(char *destino, const char *src)
+{
+  int i;
+  for (i=0; src[i] != '\0'; ++i)
+    destino[i] = src[i];
+
+  destino[i]= '\0';
+}
 
 void e0(){
 	if( (f[p] >= 65 && f[p] <= 90) || (f[p] >= 97 && f[p] <= 122) ){ // entre A-Z ou a-z
@@ -47,12 +70,12 @@ void e0(){
 					e5();
 				}
 				else{
-					if(f[p] == 32){ // espaço
+					if(f[p] == 32){ // espaÃ§o
 						p++;
 						e0();
 					}
 					else{
-						if(f[p] == '>' || f[p] == '<' || f[p] == '=' || f[p] == '(' || f[p] == ')' || f[p] == '+' || f[p] == '-' || f[p] == '*' || f[p] == '/'){
+						if(f[p] == '>' || f[p] == '<' || f[p] == '=' || f[p] == '(' || f[p] == ')' || f[p] == '+' || f[p] == '-' || f[p] == '*' || f[p] == '/' || f[p] == '@'){
 							funcao9(f[p]);
 							p++;
 							e6();
@@ -91,15 +114,15 @@ void e1(){
 			e1();
 		}
 		else{
-			if(f[p] == 32){ // espaço
-				funcao3();
-				p++;
-				e0();
-			}
-			else{
-				printf("\n-> FALHA e1()\n");
+			if(f[p] == 0){
+                funcao3();
+                print();
 				getch();
 				exit(0);
+			}
+			else{
+                funcao3();
+				e0();
 			}
 		}
 	}
@@ -112,16 +135,16 @@ void e2(){
 		e2();
 	}
 	else{
-		if(f[p] == 32){ // espaço
-			funcao6();
-			p++;
-			e0();
-		}
-		else{
-			printf("\n-> FALHA e2()\n");
-			getch();
-			exit(0);
-		}
+if(f[p] == 0){
+    funcao6();
+    	print();
+				getch();
+				exit(0);
+			}
+			else{
+                funcao6();
+				e0();
+			}
 	}
 }
 
@@ -131,30 +154,28 @@ void e3(){
 		e4();
 	}
 	else{
-		if(f[p] == 32){ // espaço
-			funcao7();
-			p++;
-			e0();
-		}
-		else{
-			printf("\n-> FALHA e3()\n");
-			getch();
-			exit(0);
-		}
+  if(f[p] == 0){
+        print();
+				getch();
+				exit(0);
+			}
+			else{
+                funcao7();
+				e0();
+			}
 	}
 }
 
 void e4(){
-	if(f[p] == 32){ // espaço
-		funcao8();
-		p++;
-		e0();
-	}
-	else{
-		printf("\n-> FALHA e4()\n");
-		getch();
-		exit(0);
-	}
+	if(f[p] == 0){
+        print();
+				getch();
+				exit(0);
+			}
+			else{
+                funcao8();
+				e0();
+			}
 }
 
 void e5(){
@@ -204,7 +225,7 @@ void funcao3(){
 	var[indice] = 0;
 	
 	for(i=0; i< 9; i++){
-		if(strcmp(var, matrizPReservada[i]) == 0){
+		if(comparaString(var, matrizPReservada[i]) == 1){
 			posicao = i;
 		}
 	}
@@ -214,13 +235,13 @@ void funcao3(){
 	}
 	else{
 		for(i=0; i<qtVar; i++){
-			if(strcmp(var, matrizVariaveis[i]) == 0){
+			if(comparaString(var, matrizVariaveis[i]) == 1){
 				posicao = i;
 			}
 		}
 		
 		if(posicao == -1){
-			strcpy(matrizVariaveis[qtVar], var);
+			cpy(matrizVariaveis[qtVar], var);
 			posicao = qtVar;
 			qtVar++;
 		}
@@ -269,15 +290,15 @@ void inicializaMatriz(){
 		}
 	}
 	
-	strcpy(matrizPReservada[0], "IF");
-	strcpy(matrizPReservada[1], "ELSE");
-	strcpy(matrizPReservada[2], "END");
-	strcpy(matrizPReservada[3], "GO");
-	strcpy(matrizPReservada[4], "TO");
-	strcpy(matrizPReservada[5], "OF");
-	strcpy(matrizPReservada[6], "PRINT");
-	strcpy(matrizPReservada[7], "READ");
-	strcpy(matrizPReservada[8], "LET");
+	cpy(matrizPReservada[0], "IF");
+	cpy(matrizPReservada[1], "ELSE");
+	cpy(matrizPReservada[2], "END");
+	cpy(matrizPReservada[3], "GO");
+	cpy(matrizPReservada[4], "TO");
+	cpy(matrizPReservada[5], "OF");
+	cpy(matrizPReservada[6], "PRINT");
+	cpy(matrizPReservada[7], "READ");
+	cpy(matrizPReservada[8], "LET");
 	
 }
 
